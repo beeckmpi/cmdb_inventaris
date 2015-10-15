@@ -1,0 +1,136 @@
+<!-- Personen View pagina --> 
+
+<template name="HardwareView">
+	<div class="container">
+		<ol class="breadcrumb">
+		  <li><a href="/">Start</a></li>
+		  <li class="active">hardware</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-7">
+				<div class="row">
+					<div class="col-md-12" style="display:inherit">
+						<a class="btn btn-default glyphicon glyphicon-edit" style="position: absolute; right: 75px; top: 15px" href="/hardware/bewerken/{{_id}}"></a>
+						<button class="btn btn-default glyphicon glyphicon-trash remove" style="position: absolute; right: 125px; top: 15px" data-hardwareid="{{_id}}"></button>						
+						<h3>Hardware overzicht</h3>		
+					</div>
+				</div>
+				<div class="row">		  	
+				 	<div class="col-md-6 col-sm-6 col-xs-6">		  		  		
+				  		<div class="form-group">
+								<div class="viewLabel" for="Tagnummer">Tagnummer</div>
+								<div>{{Tagnummer}}</div>
+							</div>
+						</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+							<div class="form-group">
+								<div class="viewLabel" for="Serienummer">Serienummer</div>
+								<div>{{Serienummer}}</div>
+							</div>
+						</div>
+				</div>
+				<div class="row">		  	
+				 	<div class="col-md-6 col-sm-6 col-xs-6">
+				 		<div class="form-group">
+							<div class="viewLabel" for="Productnaam">Productnaam</div>
+							<div>{{Productnaam}}</div>
+						</div>							
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+					 			<div class="viewLabel" for="Type">Type</div>
+								<div>{{Type}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">		  	
+				 	<div class="col-md-6 col-sm-6 col-xs-6">
+				 		<div class="form-group">
+							<div class="viewLabel" for="Garantie">Garantie</div>
+							<div>{{Garantie}}</div>
+						</div>							
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="Entiteit">Entiteit</div>
+							<div>{{Entiteit}}</div>
+						</div>	
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="Functie">Status</div>
+							<div>{{Status}}</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="Opmerking">Opmerking</div>
+							<div>{{opmerking}}</div>
+						</div>						
+					</div>
+				</div>
+				{{#if equals Type "TABLET"}}
+				<div class="row well" style="margin-right: 15px;">
+					<h5>Tablet informatie</h5>					
+						{{#each extra}}
+							{{#if nempty waarde}}
+								<div class="col-md-6 col-sm-6 col-xs-6">
+									<div class="form-group">
+										<div class="viewLabel" for="Functie">{{naam}}</div>
+										<div>{{waarde}}&nbsp;</div>
+									</div>
+								</div>
+							{{/if}}
+						{{/each}}				
+				</div>
+				{{/if}}
+			</div>
+		  <div class="col-md-5 well" style="padding-top: 0px">
+		  	<h3>Gebruikers</h3>
+		  	<p>
+		  		<table class="table table-striped">
+		  			<thead>
+		  				<tr>
+		  					<th>Naam</th>
+		  					<th>Voornaam</th>
+		  					<th>Login</th>
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+				  				<tr>
+				  					<td>{{user.NaamEntiteitscode}}</td>
+				  					<td>{{user.VoornaamEntiteitsnaam}}</td>
+				  					<td>{{user.GebruikersID}}</td>
+				  					<td><button class="btn btn-default btn-xs glyphicon glyphicon-remove-sign noCSSLink removeUser"  data-userId={{../_id}} data-hardwareID="{{_id}}" title="Verwijder de gebruiker"></button></td>
+				  				</tr>				  				
+		  			</tbody>
+		  		</table>		  		
+		  	</p>		
+		  	<h3>Geschiedenis</h3>
+		  	<p>
+		  		<table class="table table-striped">
+		  			<thead>
+		  				<tr>
+		  					<th>Naam</th>
+		  					<th>Voornaam</th>
+		  					<th>Login</th>
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+		  				{{#each history}}
+				  				<tr>
+				  					<td>{{NaamEntiteitscode}}</td>
+				  					<td>{{VoornaamEntiteitsnaam}}</td>
+				  					<td>{{Vlimpersnummer}}</td>
+				  					<td><button class="btn btn-default btn-xs glyphicon glyphicon-remove-sign noCSSLink removeUserHistory"  data-userId={{../_id}} data-hardwareID="{{_id}}" title="Verwijder de Gebruiker"></button></td>
+				  				</tr>
+				  		{{/each}}
+		  			</tbody>
+		  		</table>		  		
+		  	</p> 
+		  </div>
+		</div>
+	</div>
+</template>

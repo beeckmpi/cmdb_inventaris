@@ -1,0 +1,149 @@
+<!-- Personen View pagina --> 
+
+<template name="PersoonView">
+	<div class="container">
+		<ol class="breadcrumb">
+		  <li><a href="/">Start</a></li>
+		  <li><a href="/personen/lijst">Lijst personeelsleden</a></li>
+		  <li class="active">{{Voornaam}} {{Naam}}</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-7">
+				<div class="row">
+					<div class="col-md-12" style="display:inherit">
+						<a class="btn btn-default glyphicon glyphicon-edit" style="position: absolute; right: 75px; top: 15px" href="/personen/bewerken/{{_id}}"></a>
+						<button class="btn btn-default glyphicon glyphicon-trash remove" style="position: absolute; right: 125px; top: 15px" data-userid="{{_id}}"></button>		
+						<h3>Persoonsoverzicht</h3>		
+					</div>
+				</div>
+				<div class="row">		  	
+				 	<div class="col-md-6 col-sm-6 col-xs-6">		  		  		
+				  		<div class="form-group">
+								<div class="viewLabel" for="Naam">Naam</div>
+								<div>{{Naam}}</div>
+							</div>
+						</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+							<div class="form-group">
+								<div class="viewLabel" for="Voornaam">Voornaam</div>
+								<div>{{Voornaam}}</div>
+							</div>
+						</div>
+				</div>
+				<div class="row">		  	
+				 	<div class="col-md-6 col-sm-6 col-xs-6">
+				 		<div class="form-group">
+							<div class="viewLabel" for="Vlimpersnummer">Vlimpersnummer</div>
+							<div>{{Vlimpersnummer}}</div>
+						</div>							
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+					 			<div class="viewLabel" for="Geboortedatum">Geboortedatum</div>
+								<div>{{Geboortedatum}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">		  	
+				 	<div class="col-md-6 col-sm-6 col-xs-6">
+				 		<div class="form-group">
+							<div class="viewLabel" for="Telefoon">Telefoon</div>
+							<div>{{Telefoon}}</div>
+						</div>							
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="GSM">GSM</div>
+							<div>{{GSM}}</div>
+						</div>	
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="Functie">Functie</div>
+							<div>{{Functie}}</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="Functiecode">Functiecode</div>
+							<div>{{Functiecode}}</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="Team">Team</div>
+							<div>{{Team}}</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="ICTRugzakje">ICT - Rugzakje</div>
+							<div>{{ICTRugzakje}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">		  	
+				 	<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="Adres">Adres</div>
+							<div>{{Adres}}</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="Adrescode">Adrescode</div>
+							<div>{{Adrescode}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+							<div class="viewLabel" for="Gebouwnummer">Gebouwnummer</div>
+							<div>{{Gebouwnummer}}</div>
+						</div>
+					</div>	
+					<div class="col-md-6 col-sm-6 col-xs-6">		
+						<div class="form-group">
+							<div class="viewLabel" for="Netwerkcode">Netwerkcode</div>
+							{{Netwerkcode}}
+						</div>
+				  </div>
+				</div>
+			</div>
+		  <div class="col-md-5 well" style="padding-top: 0px" id="hardwareTable">
+		  	<h3>Hardware</h3>
+		  	<p>
+		  		<table class="table table-striped">
+		  			<thead>
+		  				<tr>
+		  					<th>ID</th>
+		  					<th>Type</th>
+		  					<th>Productnaam</th>
+		  					<th>Garantie</th>
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+				  		{{#each Hardware}}
+				  				<tr>
+				  					<td><a href="/hardware/view/{{_id}}">{{Tagnummer}}</a></td>
+				  					<td><a href="/hardware/view/{{_id}}">{{Type}}</a></td>
+				  					<td><a href="/hardware/view/{{_id}}">{{Productnaam}}</a></td>
+				  					<td><a href="/hardware/view/{{_id}}">{{Garantie}}</a></td>
+				  					<td><button class="btn btn-default btn-xs glyphicon glyphicon-remove-sign noCSSLink removeHardware"  data-userId={{../_id}} data-hardwareID="{{_id}}" title="Verwijder de hardware"></button></td>
+				  				</tr>
+				  		{{/each}}
+		  			</tbody>
+		  		</table>
+		  		<a class="btn btn-info" href="/hardware/toevoegen/{{_id}}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Hardware toevoegen</a>
+		  	</p>
+		 
+		  </div>
+		</div>
+	</div>
+</template>

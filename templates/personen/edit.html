@@ -1,0 +1,162 @@
+<template name="PersonenBewerken"> 
+  <div class="container">
+    <ol class="breadcrumb">
+      <li><a href="/">Start</a></li>
+      <li><a href="/personen/view/{{_id}}">{{Voornaam}} {{Naam}}</a></li>
+      <li class="active">Persoon Bewerken</li>
+    </ol>
+    <form id="personenBewerken">
+      <div class="row">
+        <div class="alert alert-success alert-dismissible" id="persoonBewerkenGelukt" role="alert" style="display:none">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <span id="persoonBewerkenBoodschap"></span> werd aangepast in de databank.
+        </div>
+        <div class="alert alert-danger alert-dismissible" id="persoonBewerkenMislukt" role="alert" style="display:none">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div><strong>Er is een fout opgetreden!</strong> Er is een fout opgetreden bij het bewerken van deze persoon.</div>
+          <div>Foutboodschap: <span id="foutBewerkenboodschap"></span></div>
+        </div>
+      </div>
+      <div class="row">
+      	<h3>Persoon Bewerken</h3>
+        <div class="col-md-4 col-sm-6 col-xs-6">  
+          <input type="hidden" name="id" value="{{_id}}">     
+          <div class="form-group">
+	          <label for="Naam">Naam</label>
+	          <input type="text" name="Naam"  class="form-control" value="{{Naam}}" placeholder="Naam" />
+	        </div>
+	      </div>
+        <div class="col-md-4 col-sm-6 col-xs-6">  
+	        <div class="form-group">
+	          <label for="Voornaam">Voornaam</label>
+	          <input type="text" name="Voornaam" class="form-control" value="{{Voornaam}}" placeholder="Voornaam" />
+	        </div>
+	      </div>
+	    </div>
+	    <div class="row">
+	    	<div class="col-md-4 col-sm-6 col-xs-6"> 
+	    		<div class="form-group">
+	          <label for="Vlimpersnummer">Vlimpersnummer</label>
+	          <input type="text" name="Vlimpersnummer" class="form-control" value="{{Vlimpersnummer}}" placeholder="Vlimpersnummer" />
+	        </div>	        
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-6"> 
+        	<div class="form-group">
+            <label for="Geboortedatum">Geboortedatum</label>
+          	<input type="date" name="Geboortedatum" value="{{Geboortedatum}}" class="form-control" placeholder="Geboortedatum" />
+          </div>
+	      </div>
+	    </div>
+	    <div class="row">
+	    	<div class="col-md-4 col-sm-6 col-xs-6"> 	       
+	        <div class="form-group">
+	          <label for="Telefoon">Telefoon</label>
+	          <input type="text" name="Telefoon" value="{{Telefoon}}" class="form-control" placeholder="Telefoon" />
+	        </div>
+	      </div>
+	      <div class="col-md-4 col-sm-6 col-xs-6"> 
+	        <div class="form-group">
+	          <label for="GSM">GSM</label>
+	          <input type="text" name="GSM" value="{{GSM}}" class="form-control" placeholder="GSM" />
+	        </div>
+	      </div>
+	    </div>
+	    <div class="row">
+     		<div class="col-md-4 col-sm-6 col-xs-6">
+	        <div class="form-group">
+	          <label for="Functie">Functie</label>
+	          <select name="Functie" id="Functie" class="form-control" placeholder="Functie">
+	            <option value="">--selecteer--</option>
+	            {{#each functies Functie}}          	
+	              <option value="{{Functie}}" selected={{select Functie ../Functie}}>{{Functie}}</option>              
+	            {{/each}}
+	          </select>
+	        </div>
+	      </div>
+	      <div class="col-md-4 col-sm-6 col-xs-6">
+	        <div class="form-group">	        	
+		        <label for="Functiecode">Functiecode</label>
+		        <input type="text" id="Functiecode" class="form-control" value="{{Functiecode}}" placeholder="Functiecode" disabled=true />
+		        <input type="hidden" name="Functiecode" value="{{Functiecode}}">
+		     	</div>
+	      </div>
+      </div>
+	    <div class="row">
+	    	<div class="col-md-4 col-sm-6 col-xs-6"> 
+	         <div class="form-group">
+	          <label for="Team">Team</label>
+	          <select name="Team" class="form-control" placeholder="Team">
+	            <option value="">--selecteer--</option>
+	            {{#each teams Team}}
+	              <option value="{{Team}}"  selected={{select Team ../Team}} >{{Team}}</option>
+	            {{/each}}
+	          </select>
+	        </div>        
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-6">
+        	  <div class="form-group">
+	          <label for="ICTRugzakje">ICT - Rugzakje</label>
+	          <select name="ICTRugzakje" class="form-control" placeholder="ICTRugzakje">
+	            <option value="">--selecteer--</option>
+	            <option value="1" selected={{select "1" ICTRugzakje}}>1</option>
+	            <option value="2" selected={{select "2" ICTRugzakje}}>2</option>
+	            <option value="3" selected={{select "3" ICTRugzakje}}>3</option>
+	            <option value="4" selected={{select "4" ICTRugzakje}}>4</option>
+	            <option value="5" selected={{select "5" ICTRugzakje}}>5</option>
+	            <option value="6" selected={{select "6" ICTRugzakje}}>6</option>
+	            <option value="7" selected={{select "7" ICTRugzakje}}>7</option>
+	            <option value="8" selected={{select "8" ICTRugzakje}}>8</option>
+	            <option value="9" selected={{select "9" ICTRugzakje}}>9</option>
+	            <option value="10" selected={{select "10" ICTRugzakje}}>10</option>
+	            <option value="11" selected={{select "11" ICTRugzakje}}>11</option>
+	            <option value="12" selected={{select "12" ICTRugzakje}}>12</option>
+	            <option value="13" selected={{select "13" ICTRugzakje}}>13</option>
+	            <option value="14" selected={{select "14" ICTRugzakje}}>14</option>
+	          </select>
+	        </div>
+        </div>
+     	</div>     	
+      <div class="row">
+      	<div class="col-md-4 col-sm-6 col-xs-6">	        
+	        <div class="form-group">
+	          <label for="Adres">Adres</label>
+	          <select name="Adres" id="Adres" class="form-control" placeholder="Adres">
+	            <option value="">--selecteer--</option>
+	            {{#each adressen adres}}
+	              <option value="{{Adres}}" selected={{select Adres ../Adres}}>{{Adres}}</option>
+	            {{/each}}
+	          </select>
+	        </div>
+	      </div>
+	      <div class="col-md-4 col-sm-6 col-xs-6">
+	        <div class="form-group">
+	          <label for="Adrescode">Adrescode</label>
+	          <input type="text" id="Adrescode" class="form-control" placeholder="Adrescode" value="{{Adrescode}}" disabled=true />
+	          <input type="hidden" name="Adrescode" value="{{Adrescode}}" />
+	        </div>
+	      </div>
+      </div>
+     	<div class="row">
+     		<div class="col-md-4 col-sm-6 col-xs-6">
+	        <div class="form-group">
+	          <label for="Gebouwnummer">Gebouwnummer</label>
+	          <input type="text" id="Gebouwnummer" class="form-control" placeholder="Gebouwnummer" value="{{Gebouwnummer}}" disabled=true />
+	          <input type="hidden" name="Gebouwnummer" value="{{Gebouwnummer}}" />
+	        </div>  
+	      </div>
+	      <div class="col-md-4 col-sm-6 col-xs-6">      
+	        <div class="form-group">
+	          <label for="Netwerkcode">Netwerkcode</label>
+	          <input type="text" id="Netwerkcode" class="form-control" value="{{Netwerkcode}}" placeholder="Netwerkcode" disabled=true />
+	          <input type="hidden" name="Netwerkcode" value="{{Netwerkcode}}" />
+	        </div>
+       </div>
+     </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-2">
+        <button type="submit" class="btn btn-primary btn-block">Persoon Bewerken</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</template>

@@ -1,0 +1,76 @@
+		<template name="HardwareToevoegen">
+		  <div class="row">
+		  	<div class="col-md-6 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+						<label for="Tagnummer">Tagnummer</label>
+						<input type="text" name="Tagnummer"  required=true class="form-control" placeholder="Tagnummer" />
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Serienummer">Serienummer</label>
+						<input type="text" name="Serienummer"  class="form-control" placeholder="Serienummer" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+		  	<div class="col-md-6 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Productnaam">Productnaam</label>
+						<input type="text" name="Productnaam"  class="form-control" placeholder="Productnaam" />
+		  		</div>
+		  	</div>
+		  	<div class="col-md-6 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Type">Type</label>
+		  			<select name="Type" class="form-control" >
+		  				<option value="">--selecteer--</option>
+		  				{{#each types Types}}
+	              <option value="{{Types}}">{{Types}}</option>
+	            {{/each}}
+		  			</select>
+		  		</div>
+		  	</div>
+		  </div>
+		  <div class="row">
+		  	<div class="col-md-6 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Garantie">Garantie</label>
+						<input type="date" name="Garantie"  class="form-control" placeholder="Garantie" />
+		  		</div>
+		  	</div>
+		  	<div class="col-md-6 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Entiteit">Entiteit</label>
+		  			<select name="Entiteit" class="form-control" >
+		  				<option value="">--selecteer--</option>
+		  				{{#each entiteiten Entiteit}}
+	              <option value="{{Entiteit}}">{{Entiteit}}</option>
+	            {{/each}}
+		  			</select>
+		  		</div>
+		  	</div>
+		  </div>
+		  <div class="row">
+		  	<div class="col-md-6 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Status">Status</label>
+						<select name="Status" class="form-control" >
+		  				<option value="">--selecteer--</option>
+		  				<option value="inDienst" selected=true>In dienst</option>
+		  				<option value="uitDients">Uit dienst</option>
+		  			</select>
+		  		</div>
+		  	</div>
+		  	<div class="col-md-6 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  	
+		  		</div>
+		  	</div>
+		  </div>
+		  <div class="row">
+			  <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+			  	<button type="submit" class="btn btn-primary btn-block">Item Toevoegen</button>
+			  </div>
+			</div>
+	</template>

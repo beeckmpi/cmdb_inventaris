@@ -1,0 +1,60 @@
+<template name="HardwareToevoegenAan">	
+	<div class="container">
+		<ol class="breadcrumb">
+		  <li><a href="/">Start</a></li>
+		  <li><a href="/personen/lijst">Lijst personeelsleden</a></li>
+		  <li><a href="/personen/view/{{_id}}">{{Voornaam}} {{Naam}}</a></li>
+		  <li class="active">Hardware Toevoegen</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-5 well">
+				<h4>Zoeken</h4>
+				<div class="form-group">
+					<label for="Tagnummer">Tagnummer</label>
+					<input type="text" name="TagnummerSearch" id="TagnummerSearch"  required=true class="form-control" placeholder="Typ een tagnummer in om te zoeken..." />
+				</div>
+				<table class="table table-striped">
+		  		<thead>
+		  			<tr>
+		  				<th>ID</th>
+		  				<th>Type</th>
+		  				<th>Productnaam</th>
+		  				<th>Garantie</th>
+		  			</tr>
+		  		</thead>
+		  		<tbody>
+						{{#each gevondenTags}}
+							<tr>
+				  			<td><a href="/hardware/view/{{_id}}">{{Tagnummer}}</a></td>
+				  			<td><a href="/hardware/view/{{_id}}">{{Type}}</a></td>
+				  			<td><a href="/hardware/view/{{_id}}">{{Productnaam}}</a></td>
+				  			<td><a href="/hardware/view/{{_id}}">{{Garantie}}</a></td>
+				  			<td><button data-hardwareid={{_id}} data-userid={{../_id}} class="btn btn-default btn-xs glyphicon glyphicon-plus-sign noCSSLink addHardware"></button></td>
+				  		</tr>
+				  	{{/each}}
+				  </tbody>
+				</table>
+			</div>
+			<div class="col-md-6">
+				<form id="hardwareToevoegen">
+				  <div class="row">
+				  	<div class="col-md-12">
+					  	<div class="alert alert-success alert-dismissible" id="hardwareGelukt" role="alert" style="display:none">
+							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							  <span id="hardwareBoodschap"></span> werd toegevoegd bij <span id="username"></span>.
+							</div>
+					  	<div class="alert alert-danger alert-dismissible" id="hardwareMislukt" role="alert" style="display:none">
+							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							  <div><strong>Er is een fout opgetreden!</strong> Er is een fout opgetreden bij het toevoegen van deze persoon.</div>
+							  <div>Foutboodschap: <span id="foutboodschap"></span></div>
+							</div>	
+							<h4>Hardware Toevoegen voor {{Voornaam}} {{Naam}}</h4>
+						</div>
+					</div>
+						<input type=hidden id='userid' name="userid" value="{{_id}}">
+						{{>HardwareToevoegen}}
+				</form>
+			</div>
+		</div>			
+	</div>
+</template>

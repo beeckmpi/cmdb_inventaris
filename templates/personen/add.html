@@ -1,0 +1,164 @@
+<template name="PersonenToevoegen">	
+	<div class="container">
+		<ol class="breadcrumb">
+		  <li><a href="/">Start</a></li>
+		  <li class="active">Persoon Toevoegen</li>
+		</ol>
+		<form id="personenToevoegen">			
+			<div class="row">
+			 	<div class="col-md-8">	
+			  	<div class="alert alert-success alert-dismissible" id="persoonGelukt" role="alert" style="display:none">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <span id="persoonBoodschap"></span> werd toegevoegd aan de databank.
+					</div>
+			  	<div class="alert alert-danger alert-dismissible" id="persoonMislukt" role="alert" style="display:none">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <div><strong>Er is een fout opgetreden!</strong> Er is een fout opgetreden bij het toevoegen van deze persoon.</div>
+					  <div>Foutboodschap: <span id="foutboodschap"></span></div>
+					</div>
+					<h3>Persoon Toevoegen</h3>	
+				</div>
+			</div>
+			<div class="row">
+		  	<div class="col-md-4 col-sm-6 col-xs-6">		  			  		
+		  		<div class="form-group">
+						<label for="Naam">Naam</label>
+						<input type="text" name="Naam"  class="form-control" placeholder="Naam" />
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Voornaam">Voornaam</label>
+						<input type="text" name="Voornaam" class="form-control" placeholder="Voornaam" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Vlimpersnummer">Vlimpersnummer</label>
+						<input type="text" name="Vlimpersnummer" required=true class="form-control" placeholder="Vlimpersnummer" />
+					</div>					
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+		  			<label for="Geboortedatum">Geboortedatum</label>
+						<input type="date" name="Geboortedatum"  class="form-control" placeholder="Geboortedatum" />
+					</div>
+					
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Telefoon">Telefoon</label>
+						<input type="text" name="Telefoon" class="form-control" placeholder="Telefoon" />
+					</div>					
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">						
+						<label for="GSM">GSM</label>
+						<input type="text" name="GSM" class="form-control" placeholder="GSM" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Functie">Functie</label>
+						<select name="Functie" id="Functie" class="form-control" placeholder="Functie">
+							<option value="">--selecteer--</option>
+							{{#each functies}}
+								<option value="{{Functie}}">{{Functie}}</option>
+							{{/each}}
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Functiecode">Functiecode</label>
+						<input type="text" id="Functiecode" class="form-control" placeholder="Functiecode" disabled=true />
+						<input type="hidden" name="Functiecode">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Team">Team</label>
+						<select name="Team" class="form-control" placeholder="Team">
+							<option value="">--selecteer--</option>
+							{{#each teams}}
+								<option value="{{Team}}">{{Team}}</option>
+							{{/each}}
+						</select>
+					</div>
+				</div>
+		  	<div class="col-md-4 col-sm-6 col-xs-6">		  		
+					<div class="form-group">
+						<label for="ICTRugzakje">ICT - Rugzakje</label>
+						<select name="ICTRugzakje" class="form-control" placeholder="ICTRugzakje">
+							<option value="">--selecteer--</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Adres">Adres</label>
+						<select name="Adres" id="Adres" class="form-control" placeholder="Adres">
+							<option value="">--selecteer--</option>
+							{{#each adressen}}
+								<option value="{{Adres}}">{{Adres}}</option>
+							{{/each}}
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Adrescode">Adrescode</label>
+						<input type="text" id="Adrescode" class="form-control" placeholder="Adrescode" disabled=true />
+						<input type="hidden" name="Adrescode" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Gebouwnummer">Gebouwnummer</label>
+						<input type="text" id="Gebouwnummer" class="form-control" placeholder="Gebouwnummer" disabled=true />
+						<input type="hidden" name="Gebouwnummer" />
+					</div>	
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-6">			
+					<div class="form-group">
+						<label for="Netwerkcode">Netwerkcode</label>
+						<input type="text" id="Netwerkcode" class="form-control" placeholder="Netwerkcode"  disabled=true />
+						<input type="hidden" name="Netwerkcode" />
+					</div>
+				</div>
+		</div>
+		<div class="row">
+		  <div class="col-md-4 col-md-offset-2">
+		  	<button type="submit" class="btn btn-primary btn-block">Persoon Toevoegen</button>
+		  </div>
+		</div>
+	  </form>
+	</div>
+</template>

@@ -1,0 +1,29 @@
+<template name="HardwareToevoegenAanDB">	
+	<div class="container">
+		<ol class="breadcrumb">
+		  <li><a href="/">Start</a></li>
+		  <li class="active">Hardware Toevoegen</li>
+		</ol>
+		<form id="hardwareToevoegen">
+		  <div class="row">
+		  	<div class="col-md-8">
+			  	<div class="alert alert-success alert-dismissible" id="hardwareGelukt" role="alert" style="display:none">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <span id="hardwareBoodschap"></span> werd toegevoegd aan de databank.
+					</div>
+			  	<div class="alert alert-danger alert-dismissible" id="hardwareMislukt" role="alert" style="display:none">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <div><strong>Er is een fout opgetreden!</strong> Er is een fout opgetreden bij het toevoegen van deze persoon.</div>
+					  <div>Foutboodschap: <span id="foutboodschap"></span></div>
+					</div>	
+					<h3>Hardware Toevoegen</h3>
+				</div>
+			</div>
+			<div class="row">
+		  	<div class="col-md-8">
+				{{>HardwareToevoegen}}		
+				</div>
+			</div>
+		</form>
+	</div>
+</template>

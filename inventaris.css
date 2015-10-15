@@ -1,0 +1,27 @@
+/* CSS declarations go here */
+body { padding-top: 70px; }
+
+#login-dropdown-list {
+  list-style: none;
+  margin-top: 15px;
+}
+.table a {
+  display:block;
+}
+.table tbody tr:hover, .table tbody tr:hover a {
+  background-color: #337ab7;
+  color: #ccc;
+}
+.table a:hover {
+  text-decoration:none;
+  color: #ccc;
+}
+
+.viewLabel {
+  font-weight: bold;
+}
+.noCSSLink, .noCSSLink:hover {
+  color: #000;
+  text-decoration: none;
+  padding-bottom: -3px;
+}

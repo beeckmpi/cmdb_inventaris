@@ -1,0 +1,97 @@
+<template name="HardwareBewerken">
+	<div class="container">
+    <ol class="breadcrumb">
+      <li><a href="/">Start</a></li>
+      <li><a href="/hardware/view/{{_id}}">{{Productnaam}}</a></li>
+      <li class="active">Persoon Bewerken</li>
+    </ol>
+    <form id="personenBewerken">
+      <div class="row">
+        <div class="alert alert-success alert-dismissible" id="persoonBewerkenGelukt" role="alert" style="display:none">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <span id="persoonBewerkenBoodschap"></span> werd aangepast in de databank.
+        </div>
+        <div class="alert alert-danger alert-dismissible" id="persoonBewerkenMislukt" role="alert" style="display:none">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div><strong>Er is een fout opgetreden!</strong> Er is een fout opgetreden bij het bewerken van deze hardware.</div>
+          <div>Foutboodschap: <span id="foutBewerkenboodschap"></span></div>
+        </div>
+      </div>
+      <div class="row">
+      	<h3>Hardware Bewerken</h3>
+        <div class="col-md-4 col-sm-6 col-xs-6">  		  		
+		  		<div class="form-group">
+						<label for="Tagnummer">Tagnummer</label>
+						<input type="text" name="Tagnummer"  value={{Tagnummer}} required=true class="form-control" placeholder="Tagnummer" />
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="form-group">
+						<label for="Serienummer">Serienummer</label>
+						<input type="text" name="Serienummer"  value={{Serienummer}} class="form-control" placeholder="Serienummer" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Productnaam">Productnaam</label>
+						<input type="text" name="Productnaam" value={{Productnaam}} class="form-control" placeholder="Productnaam" />
+		  		</div>
+		  	</div>
+		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Type">Type</label>
+		  			<select name="Type" class="form-control" >
+		  				<option value="">--selecteer--</option>
+		  				{{#each types Types}}
+	              <option value="{{Types}}"  selected={{select Types ../Type}}>{{Types}}</option>
+	            {{/each}}
+		  			</select>
+		  		</div>
+		  	</div>
+		  </div>
+		  <div class="row">
+		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Garantie">Garantie</label>
+						<input type="date" name="Garantie"  class="form-control" placeholder="Garantie" />
+		  		</div>
+		  	</div>
+		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Entiteit">Entiteit</label>
+		  			<select name="Entiteit" class="form-control" >
+		  				<option value="">--selecteer--</option>
+		  				{{#each entiteiten Entiteit}}
+	              <option value="{{Entiteit}}" selected={{select Entiteit ../Entiteit}}>{{Entiteit}}</option>
+	            {{/each}}
+		  			</select>
+		  		</div>
+		  	</div>
+		  </div>
+		  <div class="row">
+		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  			<label for="Status">Status</label>
+						<select name="Status" class="form-control" >
+		  				<option value="">--selecteer--</option>
+		  				<option value="inDienst" selected={{select "inDienst" Status}}>In dienst</option>
+		  				<option value="uitDients" selected={{select "uitDienst" Status}}>Uit dienst</option>
+		  			</select>
+		  		</div>
+		  	</div>
+		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
+		  		<div class="form-group">
+		  	
+		  		</div>
+		  	</div>
+		  </div>
+		  <div class="row">
+			  <div class="col-md-4 col-md-offset-2 col-sm-12 col-xs-12">
+			  	<button type="submit" class="btn btn-primary btn-block">Item Bewerken</button>
+			  </div>
+			</div>
+		</form>
+	</div>
+</template>

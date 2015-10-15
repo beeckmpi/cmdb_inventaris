@@ -1,0 +1,127 @@
+<template name="Start">
+	<div class="container">
+		<ol class="breadcrumb">
+		  <li class="active">Start</li>
+		</ol>
+		<div class="row">
+			  <div class="col-md-9">
+			  	<div style="float:right; margin-top: 15px; display:inline-block; margin-left: 20px">
+			  		<label style="display:inline-block">Aantal:</label>
+			  		<select id=aantal class="form-control" style="display:inline-block; width: auto">
+			  			<option value=5>5</option>
+			  			<option value=10>10</option>
+			  			<option value=15 selected>15</option>
+			  			<option value=20>20</option>
+			  			<option value=25>25</option>
+			  			<option value=50>50</option>
+			  			<option value=100>100</option>
+			  		</select>
+			  	</div>
+			  	<div style="float:right; margin-top: 15px">
+			  		<label>Toon:</label>
+			  		<div class="btn-group" data-toggle="buttons" id="changeView">
+						  <label class="btn btn-default {{active defaultShow AllesRadio}}">
+						    <input type="radio" name="options" autocomplete="off" id="AllesRadio" checked={{checked defaultShow AllesRadio}}> Alles
+						  </label>
+						  <label class="btn btn-default {{active defaultShow HardwareRadio}}">
+						  	<input type="radio" name="options" autocomplete="off" id="HardwareRadio" checked={{checked defaultShow HardwareRadio}}> Hardware
+						  </label>
+						  <label class="btn btn-default {{active defaultShow PersoneelRadio}}">
+						    <input type="radio" name="options" autocomplete="off" id="PersoneelRadio" checked={{checked defaultShow PersoneelRadio}}> Personeel
+						  </label>
+						</div>
+			  	</div>
+			  	<h3>Zoeken</h3>
+					<form id="searchForm">
+						<div class="form-group">
+		  			<!--<label for="Zoeken">Zoeken</label>-->
+						<input type="text" name="Zoeken"  class="form-control" id="SearchInput" placeholder="Zoek naar een Tagnummer, Naam, Voornaam, Locatiecode, Type, Serienummer, Productnaam" />
+		  		</div>
+		  		
+					</form>				
+					{{#if messages.hardware}}	
+					<h4>Hardware</h4>
+						<table class="table table-striped" id=HardwareTable>		
+							<thead>
+								<tr>
+									<th>Tagnummer</th>
+									<th>Type</th>
+									<th>Productnaam</th>
+									<th>Adrescode</th>
+									<th>Garantie</th>	
+								</tr>
+							</thead>				
+							<tbody>
+							{{#each messages.hardware}}
+								{{#if Tagnummer}}
+									<tr>
+						  			<td><a href="/hardware/view/{{_id}}">{{Tagnummer}}</a></td>
+						  			<td><a href="/hardware/view/{{_id}}">{{Type}}</a></td>
+						  			<td><a href="/hardware/view/{{_id}}">{{Productnaam}}</a></td>
+						  			<td><a href="/hardware/view/{{_id}}">{{Entiteit}}</a></td>
+						  			<td><a href="/hardware/view/{{_id}}">{{Garantie}}</a></td>
+						  		</tr>
+						  	{{/if}}
+						 	{{/each}}	
+						 	</tbody>
+						</table>
+					{{/if}}
+					{{#if messages.personen}}	
+					<h4>Personeel</h4>
+					  <table class="table table-striped" id=PersoneelTable>		
+							<thead>
+								<tr>
+									<th>Vlimpers</th>
+									<th>Naam</th>
+									<th>Team</th>
+									<th>Standplaats</th>						
+									<th>GSM</th>
+									<th>Telefoon</th>
+								</tr>
+							</thead>				
+							<tbody>				
+							{{#each messages.personen}}
+						 		{{#if Vlimpersnummer}}
+								<tr>
+									<td><a href="/personen/view/{{_id}}">{{Vlimpersnummer}}</a></td>
+									<td><a href="/personen/view/{{_id}}">{{Naam}} {{Voornaam}}</a></td>
+									<td><a href="/personen/view/{{_id}}">{{Team}}</a></td>
+									<td><a href="/personen/view/{{_id}}">{{Adrescode}}</a></td>						
+									<td><a href="/personen/view/{{_id}}">{{GSM}}</a></td>
+									<td><a href="/personen/view/{{_id}}">{{Telefoon}}</a></td>
+								</tr>
+								{{/if}}							
+							{{/each}}			
+							</tbody>
+						</table>
+					{{/if}}			
+			  </div>
+			  <div class="col-md-3  well" style="padding-top: 0px">
+			  	<H3>Menu</H3>
+			  		<p>
+			  			<h5><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Personen</h5>
+			  			<a href="/personen/lijst" class="btn btn-primary">Personeels Lijst</a>
+			  		</p>
+			  	<h3>Toevoegen</h3>
+			  	<p>
+			  		<h5><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Personen</h5>
+			  		<a href="/personen/toevoegen" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Persoon toevoegen</a>
+			  	</p>
+			  	<p>
+			  		<h5><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Locatie</h5>
+			  		<a href="/locatie/toevoegen" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Locatie toevoegen</a>
+			  	</p>
+			  	<p>
+			  		<h5><span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> Hardware</h5>
+			  		<a href="/hardware/toevoegen" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Hardware toevoegen</a>
+			  	</p>			  	
+			  	<p>
+			  		<a href="/uploadCSV" class="btn btn-link">CSV uploaden</a>
+			  	</p>
+			  	<p>
+			  		<a href="/connectPersoonHardware" class="btn btn-link">GegevensConnecteren</a>
+			  	</p>
+			  </div>
+			</div>
+		</div>
+</template>

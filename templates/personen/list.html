@@ -1,0 +1,90 @@
+<!-- Personen View pagina --> 
+
+<template name="PersonenLijst">
+	<div class="container">
+		<ol class="breadcrumb">
+		  <li><a href="/">Start</a></li>
+		  <li class="active">Lijst personeelsleden</li>
+		</ol>
+		<div class="col-md-12">			
+			<h3>Lijst personeelsleden</h3>
+		  <div>
+		  	<form>
+		      <div class="form-group">
+		        <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Zoek naar een naam" value="{{fcFilterSearchable.criteria}}" data-fc-search-target="search-box">		      
+		      </div>
+		    	<button type="submit" class="btn btn-default fc-search-trigger" data-fc-search-trigger="search-box" style="display: none">Submit</button>
+		      <button type="button" class="btn btn-default fc-search-clear" style="display:none">Reset</button>
+		    </form>
+		  </div>	    
+			<nav>				
+				<select class="fc-pager-options form-control" style="display:inline-block; width: 70px;">
+				  {{#each fcPager.options}}
+				    <option value="{{value}}" {{status}}>{{value}}</option>
+				  {{/each}}
+				</select>
+				Resultaten per pagina
+			  <ul class="pagination" style="display:inline-block; float:right; margin: 0 0;">
+			    <li><a href="#" class="fc-pager-first Previous"><span aria-hidden="true">&laquo;</span></a></li>
+			    <li><a href="#" class="fc-pager-previous">&lt;</a></li>
+			    {{#each fcPager.pages}}
+			      <li class="{{status}}"><a href="#" class="fc-pager-page" data-fc-pager-page="{{page}}">{{page}}</a></li>
+			    {{/each}}
+			    <li><a href="#" class="fc-pager-next Next"><span aria-hidden="true">&raquo;</span></a></li>
+			    <li><a href="#" class="fc-pager-last">&gt;&gt;</a></li>
+			  </ul>
+			</nav>		
+      <div>
+			<table class="table table-striped table-hover table-condensed">
+				<thead>
+					<tr>
+						<th class="fc-sort" data-fc-sort="Vlimpers">
+							Vlimpers
+							{{#if fcSort.Vlimpers.desc}}desc{{/if}}
+  						{{#if fcSort.Vlimpers.asc}}asc{{/if}}
+						</th>
+						<th class="fc-sort" data-fc-sort="Naam">
+							Naam
+							{{#if fcSort.Naam.desc}}desc{{/if}}
+  						{{#if fcSort.Naam.asc}}asc{{/if}}	
+						</th>
+						<th class="fc-sort" data-fc-sort="Team">
+							Team
+							{{#if fcSort.Team.desc}}desc{{/if}}
+  						{{#if fcSort.Team.asc}}asc{{/if}}	
+						</th>
+						<th class="fc-sort" data-fc-sort="Adrescode">
+							Standplaats
+							{{#if fcSort.Adrescode.desc}}desc{{/if}}
+  						{{#if fcSort.Adrescode.asc}}asc{{/if}}	
+  					</th>						
+						<th class="fc-sort" data-fc-sort="GSM">
+							GSM
+							{{#if fcSort.GSM.desc}}desc{{/if}}
+  						{{#if fcSort.GSM.asc}}asc{{/if}}	
+  					</th>
+						<th class="fc-sort" data-fc-sort="Telefoon">
+							Telefoon
+							{{#if fcSort.Telefoon.desc}}desc{{/if}}
+  						{{#if fcSort.Telefoon.asc}}asc{{/if}}	
+  					</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each fcResults}}
+					<tr>
+						<td><a href="/personen/view/{{_id}}">{{Vlimpersnummer}}</a></td>
+						<td><a href="/personen/view/{{_id}}">{{Naam}} {{Voornaam}}</a></td>
+						<td><a href="/personen/view/{{_id}}">{{Team}}</a></td>
+						<td><a href="/personen/view/{{_id}}">{{Adrescode}}</a></td>						
+						<td><a href="/personen/view/{{_id}}">{{GSM}}</a></td>
+						<td><a href="/personen/view/{{_id}}">{{Telefoon}}</a></td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+			
+		</div>
+	</div>
+</template>
