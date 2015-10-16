@@ -328,6 +328,18 @@ if (Meteor.isClient) {
       if(optionText === selectedValue){
         return 'selected';
       }
+    },
+    equals: function(v1, v2) {
+        return (v1 === v2);
+    },
+    equals2: function(v1, v2, v3) {
+        return (v1 === v2 || v1 === v3);
+    },  
+    equals6: function(v1, v2, v3, v4, v5, v6){
+      return (v1 === v2 || v1 === v3 || v1 === v4 || v1 === v5|| v1 === v6);
+    },
+    nempty: function(value) {
+        return (value != '');
     }
   });
   PersonenFilter = new Meteor.FilterCollections(Personen, {

@@ -55,7 +55,7 @@
 		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
 		  		<div class="form-group">
 		  			<label for="Garantie">Garantie</label>
-						<input type="date" name="Garantie"  class="form-control" placeholder="Garantie" />
+						<input type="date" name="Garantie"  value={{Garantie}} class="form-control" placeholder="Garantie" />
 		  		</div>
 		  	</div>
 		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
@@ -87,6 +87,27 @@
 		  		</div>
 		  	</div>
 		  </div>
+		  {{#if equals Type "TABLET"}}
+			<div class="row well" style="margin-right: 15px;">
+				<h5>Tablet informatie</h5>					
+					{{#each extra}}
+						<div class="col-md-4 col-sm-6 col-xs-6">
+							<div class="form-group">
+								<label for="{{naam}}">{{naam}}</label>
+								{{#if equals2 naam "datum" "OntvangenOp"}}
+									<input type="date" value="{{waarde}}" class="form-control" name="{{naam}}" placeholder="{{naam}}" />
+								{{else}}
+									{{#if equals6 naam "HandStrap" "USB" "TabletAutoFloorMount" "BatterijLaderVoertuig" "autoLader" "TabletStandCase"}}
+									<br /><input type="checkbox" name="{{naam}}"/>
+									{{else}}
+									<input type="text" value="{{waarde}}" class="form-control" name="{{naam}}" placeholder="{{naam}}" />
+									{{/if}}
+								{{/if}}
+							</div>
+						</div>
+				{{/each}}				
+			</div>
+			{{/if}}
 		  <div class="row">
 			  <div class="col-md-4 col-md-offset-2 col-sm-12 col-xs-12">
 			  	<button type="submit" class="btn btn-primary btn-block">Item Bewerken</button>

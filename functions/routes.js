@@ -66,16 +66,29 @@ Router.route('/hardware/toevoegen/:id', function() {
 
 Router.route('/hardware/bewerken/:id', function() {
    var hardware = Hardware.findOne({_id: this.params.id});
-   hardware.Garantie = moment(hardware.Garantie).format('YYYY-MM-DD');  
-   this.render('HardwareBewerken', {data: hardware});
+   if (hardware != undefined){
+     console.log(hardware.Garantie);
+     hardware.Garantie = moment(hardware.Garantie).format('YYYY-MM-DD');  
+     console.log(hardware.Garantie);
+     var extra = hardware.extra;
+     extra.forEach(function(value, key){
+       if (extra[key]['naam']=='datum' || extra[key]['naam']=='OntvangenOp'){                
+         extra[key]['waarde'] = moment(extra[key]['waarde'], 'DD-MM-YYYY').format('YYYY-MM-DD');         
+       }
+     });
+     hardware.extra = extra;
+     this.render('HardwareBewerken', {data: hardware});
+   }    
 });
-Router.route('/hardware/view/:id', function() {
+Router.route('/hardware/view/:id', function() {  
    var hardware = Hardware.findOne({_id: this.params.id});
-   hardware.Garantie = moment(hardware.Garantie).format('DD-MM-YYYY');  
-   if (hardware.Garantie == '01-01-1970'){
-    hardware.Garantie = "NA";
+   if (hardware != undefined){
+     hardware.Garantie = moment(hardware.Garantie).format('DD-MM-YYYY');  
+     if (hardware.Garantie == '01-01-1970'){
+      hardware.Garantie = "NA";
+     }
+     this.render('HardwareView', {data: hardware});
    }
-   this.render('HardwareView', {data: hardware});
 });
 Router.route('/hardware/removeAll', function() {
    Meteor.call("removeAll", 'Hardware');
