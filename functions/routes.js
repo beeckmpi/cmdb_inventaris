@@ -1,5 +1,18 @@
 // Router
+var OnBeforeActions;
 
+OnBeforeActions = {
+  loginRequired: function(route, asd, pause) {
+    if (!Meteor.userId()) {
+      this.render('Login');
+    } else {
+      this.next();
+    }
+  },
+};
+Router.onBeforeAction(OnBeforeActions.loginRequired, {
+  except: []
+});
 Router.route('/', function () {
   this.render('Start');
 });
@@ -67,22 +80,27 @@ Router.route('/hardware/toevoegen/:id', function() {
 Router.route('/hardware/bewerken/:id', function() {
    var hardware = Hardware.findOne({_id: this.params.id});
    if (hardware != undefined){
-     console.log(hardware.Garantie);
-     hardware.Garantie = moment(hardware.Garantie).format('YYYY-MM-DD');  
-     console.log(hardware.Garantie);
-     var extra = hardware.extra;
-     extra.forEach(function(value, key){
-       if (extra[key]['naam']=='datum' || extra[key]['naam']=='OntvangenOp'){                
-         extra[key]['waarde'] = moment(extra[key]['waarde'], 'DD-MM-YYYY').format('YYYY-MM-DD');         
-       }
-     });
-     hardware.extra = extra;
+     if (hardware.Garantie != '01-01-1970'){
+        hardware.Garantie = moment(hardware.Garantie).format('YYYY-MM-DD');  
+     } 
+     if (hardware.extra != undefined){
+       var extra = hardware.extra;
+       extra.forEach(function(value, key){
+         if (extra[key]['naam']=='datum' || extra[key]['naam']=='OntvangenOp'){                
+           extra[key]['waarde'] = moment(extra[key]['waarde'], 'DD-MM-YYYY').format('YYYY-MM-DD');         
+         }
+       });
+       hardware.extra = extra;
+     }
      this.render('HardwareBewerken', {data: hardware});
    }    
 });
 Router.route('/hardware/view/:id', function() {  
-   var hardware = Hardware.findOne({_id: this.params.id});
+  Meteor.subscribe("personenSearch");
+   var hardware = Hardware.findOne({_id: this.params.id});  
    if (hardware != undefined){
+     var user = Personen.findOne({Vlimpersnummer: String(hardware.user.Vlimpersnummer)});
+     hardware.user_id = user._id;
      hardware.Garantie = moment(hardware.Garantie).format('DD-MM-YYYY');  
      if (hardware.Garantie == '01-01-1970'){
       hardware.Garantie = "NA";

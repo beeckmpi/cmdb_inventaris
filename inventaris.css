@@ -25,3 +25,22 @@ body { padding-top: 70px; }
   text-decoration: none;
   padding-bottom: -3px;
 }
+.profilePic {
+  border-radius: 30px;
+  margin: 8px 0px 10px 10px;
+}
+
+.profileName {
+  padding: 10px 10px 0 10px;
+}
+
+.navbar-right .glyphicon {
+  border-radius: 30px;
+  margin: 8px 10px 10px 5px;
+  padding: 6px 6px;
+  color: #777;
+  border: 3px solid #777;
+  border-radius: 30px;
+  cursor: pointer;
+  line-height: 1;
+}

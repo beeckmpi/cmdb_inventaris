@@ -7,7 +7,42 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 	  <div class="container">
 	    <a class="navbar-brand" href="#">Inventaris</a>
-	    <p class="navbar-right">{{> loginButtons}}</p>
+	    <ul class="nav navbar-nav navbar-right">
+	    	<li>
+	    		<a class="glyphicon glyphicon-search" href="/" data-toggle="tooltip" data-placement="bottom" title="Zoeken"></a>
+	    	</li>
+	    	<li>
+	    		<a class="glyphicon glyphicon-list" href="/personen/lijst" data-toggle="tooltip" data-placement="bottom" title="Personeelslijst"></a>
+	    	</li>
+	    	<li class="dropdown">
+	    		<i data-placement="bottom" title="Items Toevoegen" class="glyphicon glyphicon-plus" data-toggle="dropdown" id="dropDown" role="button" aria-haspopup="true" aria-expanded="false"></i>
+	    		<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+	    			<li><a href="/hardware/toevoegen">Hardware toevoegen</a></li>
+	    			<li><a href="/locatie/toevoegen">Locatie toevoegen</a></li>
+		    		<li><a href="/personen/toevoegen">Persoon toevoegen</a></li>		    			
+		  		</ul>
+	    	</li>
+	    	<li>
+	    		<a class="glyphicon glyphicon-cloud-upload" href="/uploadCSV" data-toggle="tooltip" data-placement="bottom" title="CSV uploaden"></a>
+	    	</li>
+	    	<li class="dropdown">
+		    	{{#if currentUser}}
+			    	{{#if currentUser.profile.picture}}
+			    		<div data-toggle="dropdown" id="dropDown" role="button" aria-haspopup="true" aria-expanded="false">
+			    			<img src="{{currentUser.profile.picture}}?sz=32" class="profilePic" />
+			    		</div>
+			    	{{else}}
+			    		<div data-toggle="dropdown" id="dropDown" role="button" aria-haspopup="true" aria-expanded="false">
+			    			<a class="profileName">{{currentUser.profile.name}}</a>
+			    			 <span class="caret"></span>
+			    		</div>
+		    		{{/if}}	    	
+			    	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+		    			<li><a href="#" class="logOut">Afmelden</a></li>
+		  			</ul>	    	
+			    {{/if}}
+		    </li>
+	    </ul>
 	  </div>
 	</nav>  	
 </body>

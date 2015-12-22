@@ -17,6 +17,7 @@ if (Meteor.isClient) {
   Meteor.subscribe("Types");
   Meteor.subscribe("Prullenbak");
   Template.Start.onRendered(function(){
+    $('[data-toggle="tooltip"]').tooltip();
     var radio = $("#changeView input[type='radio']:checked").attr('id');    
     if (radio === 'AllesRadio'){
       $('#HardwareTable, #PersoneelTable').css('display', '');
@@ -138,6 +139,27 @@ if (Meteor.isClient) {
       Meteor.call('hardwareToevoegenAan', data);
       $('#hardwareToevoegen input[type="text"], #hardwareToevoegen input[type="date"], #hardwareToevoegen select').val('');
       return false;
+    }
+  });
+  Template.HardwareBewerken.events({
+    'submit #hardwareBewerken': function(event, template){
+      
+    }
+  });
+  Template.login.events({
+    'click #loginWithGoogle': function(event, template){
+      Meteor.loginWithGoogle({
+        requestPermissions: ['email', 'profile']
+      }, function (err) {
+        if(err) {
+          //error handling
+          alert('error : '+ err);
+          throw new Meteor.Error(Accounts.LoginCancelledError.numericError, 'Error');
+      } else {
+          //show an alert
+          // alert('logged in');
+      }
+     });
     }
   });
   
@@ -297,6 +319,9 @@ if (Meteor.isClient) {
     }
   });
   Template.HardwareView.helpers({
+    personen: function() {
+      Meteor.subscribe("personenSearch");
+    },
     equals: function(v1, v2) {
         return (v1 === v2);
     }, 

@@ -100,9 +100,9 @@
 		  			</thead>
 		  			<tbody>
 				  				<tr>
-				  					<td>{{user.NaamEntiteitscode}}</td>
-				  					<td>{{user.VoornaamEntiteitsnaam}}</td>
-				  					<td>{{user.GebruikersID}}</td>
+				  					<td><a href="/personen/view/{{user_id}}">{{user.NaamEntiteitscode}}</a></td>
+				  					<td><a href="/personen/view/{{user_id}}">{{user.VoornaamEntiteitsnaam}}</a></td>
+				  					<td><a href="/personen/view/{{user_id}}">{{user.GebruikersID}}</a></td>
 				  					<td><button class="btn btn-default btn-xs glyphicon glyphicon-remove-sign noCSSLink removeUser"  data-userId={{../_id}} data-hardwareID="{{_id}}" title="Verwijder de gebruiker"></button></td>
 				  				</tr>				  				
 		  			</tbody>
