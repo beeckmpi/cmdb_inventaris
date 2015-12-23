@@ -3,15 +3,11 @@
     <ol class="breadcrumb">
       <li><a href="/">Start</a></li>
       <li><a href="/hardware/view/{{_id}}">{{Productnaam}}</a></li>
-      <li class="active">Persoon Bewerken</li>
+      <li class="active">{{Type}} Bewerken</li>
     </ol>
     <form id="hardwareBewerken">
       <div class="row">
-        <div class="alert alert-success alert-dismissible" id="persoonBewerkenGelukt" role="alert" style="display:none">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <span id="persoonBewerkenBoodschap"></span> werd aangepast in de databank.
-        </div>
-        <div class="alert alert-danger alert-dismissible" id="persoonBewerkenMislukt" role="alert" style="display:none">
+        <div class="alert alert-danger alert-dismissible" id="hardwareBewerkenMislukt" role="alert" style="display:none">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <div><strong>Er is een fout opgetreden!</strong> Er is een fout opgetreden bij het bewerken van deze hardware.</div>
           <div>Foutboodschap: <span id="foutBewerkenboodschap"></span></div>
@@ -19,6 +15,7 @@
       </div>
       <div class="row">
       	<h3>Hardware Bewerken</h3>
+      	<input type="hidden" id="_id" name="_id" value="{{_id}}" />
         <div class="col-md-4 col-sm-6 col-xs-6">  		  		
 		  		<div class="form-group">
 						<label for="Tagnummer">Tagnummer</label>
@@ -41,12 +38,11 @@
 		  	</div>
 		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
 		  		<div class="form-group">
-		  			<label for="Type">Type</label>
-		  			<select name="Type" class="form-control" >
+		  			<label for="Status">Status</label>
+						<select name="Status" class="form-control" >
 		  				<option value="">--selecteer--</option>
-		  				{{#each types Types}}
-	              <option value="{{Types}}"  selected={{select Types ../Type}}>{{Types}}</option>
-	            {{/each}}
+		  				<option value="inDienst" selected={{select "inDienst" Status}}>In dienst</option>
+		  				<option value="uitDients" selected={{select "uitDienst" Status}}>Uit dienst</option>
 		  			</select>
 		  		</div>
 		  	</div>
@@ -71,19 +67,29 @@
 		  	</div>
 		  </div>
 		  <div class="row">
-		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
+		  	<div class="col-md-4 col-sm-6 col-xs-6">	
 		  		<div class="form-group">
-		  			<label for="Status">Status</label>
-						<select name="Status" class="form-control" >
+		  			<label for="Type">Type</label>
+		  			<select name="Type" class="form-control" >
 		  				<option value="">--selecteer--</option>
-		  				<option value="inDienst" selected={{select "inDienst" Status}}>In dienst</option>
-		  				<option value="uitDients" selected={{select "uitDienst" Status}}>Uit dienst</option>
+		  				{{#each types Types}}
+	              <option value="{{Types}}"  selected={{select Types ../Type}}>{{Types}}</option>
+	            {{/each}}
 		  			</select>
-		  		</div>
+		  		</div>  		
+		  		
 		  	</div>
 		  	<div class="col-md-4 col-sm-6 col-xs-6">	  		
 		  		<div class="form-group">
+		  		</div>
+		  	</div>
+		  </div>
+		  <div class="row">
 		  	
+		  	<div class="col-md-8 col-sm-12 col-xs-12">	  		
+		  		<div class="form-group">
+		  			<label for="Opmerking">Opmerking</label>
+		  			<div id="summernote">{{{opmerking}}}</div>
 		  		</div>
 		  	</div>
 		  </div>
@@ -95,12 +101,12 @@
 							<div class="form-group">
 								<label for="{{naam}}">{{naam}}</label>
 								{{#if equals2 naam "datum" "OntvangenOp"}}
-									<input type="date" value="{{waarde}}" class="form-control" name="{{naam}}" placeholder="{{naam}}" />
 								{{else}}
 									{{#if equals6 naam "HandStrap" "USB" "TabletAutoFloorMount" "BatterijLaderVoertuig" "autoLader" "TabletStandCase"}}
-									<br /><input type="checkbox" name="{{naam}}"/>
+									<br /><input type="checkbox" name="extra[{{naam}}]"/>
 									{{else}}
-									<input type="text" value="{{waarde}}" class="form-control" name="{{naam}}" placeholder="{{naam}}" />
+									
+									<input type="text" value="{{waarde}}" class="form-control" name="extra[{{naam}}]" placeholder="{{naam}}" />
 									{{/if}}
 								{{/if}}
 							</div>

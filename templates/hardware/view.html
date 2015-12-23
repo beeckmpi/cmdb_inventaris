@@ -9,9 +9,15 @@
 		<div class="row">
 			<div class="col-md-7">
 				<div class="row">
+					<div class="col-md-12">
+						<div class="alert alert-success alert-dismissible" id="hardwareBewerkenGelukt" role="alert" style="display:none">
+		          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		          Deze <span id="hardwareBewerkenBoodschap">{{Type}}</span> werd aangepast in de databank.
+		        </div>
+					</div>
 					<div class="col-md-12" style="display:inherit">
 						<a class="btn btn-default glyphicon glyphicon-edit" style="position: absolute; right: 75px; top: 15px" href="/hardware/bewerken/{{_id}}"></a>
-						<button class="btn btn-default glyphicon glyphicon-trash remove" style="position: absolute; right: 125px; top: 15px" data-hardwareid="{{_id}}"></button>						
+						<button class="btn btn-default glyphicon glyphicon-trash remove" style="position: absolute; right: 125px; top: 15px" data-userid="{{user_id}}" data-hardwareid="{{_id}}"></button>						
 						<h3>Hardware overzicht</h3>		
 					</div>
 				</div>
@@ -38,8 +44,8 @@
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<div class="form-group">
-					 			<div class="viewLabel" for="Type">Type</div>
-								<div>{{Type}}</div>
+							<div class="viewLabel" for="Functie">Status</div>
+							<div>{{Status}}</div>
 						</div>
 					</div>
 				</div>
@@ -60,14 +66,14 @@
 				<div class="row">
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<div class="form-group">
-							<div class="viewLabel" for="Functie">Status</div>
-							<div>{{Status}}</div>
-						</div>
+					 			<div class="viewLabel" for="Type">Type</div>
+								<div>{{Type}}</div>
+						</div>						
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<div class="form-group">
 							<div class="viewLabel" for="Opmerking">Opmerking</div>
-							<div>{{opmerking}}</div>
+							<div>{{{opmerking}}}</div>
 						</div>						
 					</div>
 				</div>

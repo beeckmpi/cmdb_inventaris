@@ -18,6 +18,7 @@ if (Meteor.isClient) {
   Meteor.subscribe("Prullenbak");
   Template.Start.onRendered(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    $('#SearchInput').focus();
     var radio = $("#changeView input[type='radio']:checked").attr('id');    
     if (radio === 'AllesRadio'){
       $('#HardwareTable, #PersoneelTable').css('display', '');
@@ -42,6 +43,7 @@ if (Meteor.isClient) {
       }
     });
   });
+ 
   Template.Start.events({
     'keyup input#SearchInput': function(event){
       var searchText = event.target.value;
@@ -128,9 +130,24 @@ if (Meteor.isClient) {
       if (confirm('Bent u zeker dat u dit wil verwijderen')){
         $this = $(event.target);
         var hardwareId = $this.data('hardwareid');
-        Meteor.call('removeHardware', hardwareId);
+        var userId = $this.data('userid');
+        Meteor.call('removeHardware', hardwareId, userId);
       }
     }
+  });
+  Template.HardwareToevoegen.onRendered(function(){
+    $('#summernote').summernote({
+      height: 140,
+      toolbar: [
+        // [groupName, [list of button]]
+        ['insert', ['picture', 'table']],
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['misc',['fullscreen', 'undo', 'redo']]
+      ]
+    });
   });
   Template.HardwareToevoegenAanDB.events({
     'submit #hardwareToevoegen': function(event, template){
@@ -141,9 +158,29 @@ if (Meteor.isClient) {
       return false;
     }
   });
+  Template.HardwareBewerken.onRendered(function(){
+    $('#summernote').summernote({
+      height: 140,
+      toolbar: [
+        // [groupName, [list of button]]
+        ['insert', ['picture', 'table']],
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['misc',['fullscreen', 'undo', 'redo']]
+      ]
+    });
+  });
   Template.HardwareBewerken.events({
     'submit #hardwareBewerken': function(event, template){
-      
+      var data = $('#hardwareBewerken').serializeJSON();
+      data.Garantie = new Date(data.Garantie);
+      data.opmerking = $('#summernote').summernote('code');
+      var id = data._id;
+      delete data._id; 
+      Meteor.call('hardwareBewerken', id, data);
+      return false;
     }
   });
   Template.login.events({
@@ -166,7 +203,7 @@ if (Meteor.isClient) {
   Template.HardwareToevoegenAan.events({
     'keyup input#TagnummerSearch': function(event){
       var searchTag = $('#TagnummerSearch').val();
-      Meteor.call('getHardware', searchTag);      
+      Meteor.call('getHardware', String(searchTag));      
     },
     'click .addHardware': function(event){
       $this = $(event.target);

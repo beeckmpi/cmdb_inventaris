@@ -51,46 +51,55 @@ Meteor.methods({
     });
   },
   uploaden: function(data, type){
-    if (type=="personen"){
-      data[0]['Geboortedatum'] = new Date(data[0]['Geboortedatum']);
-      data[0]['Vlimpersnummer'] = data[0]['Vlimpersnummer'].toString();
-      Personen.insert(data[0]);
-    } else if (type=="hardware"){
-      data[0]['Garantie'] = new Date(data[0]['Garantie']);
-      data[0]['user'] = {NaamEntiteitscode: data[0]['Naam-Entiteitscode'], VoornaamEntiteitsnaam: data[0]['Voornaam-Entiteitsnaam'], GebruikersID: data[0]['GebruikersID']};
-      delete data[0]['Naam-Entiteitscode'];
-      delete data[0]['Voornaam-Entiteitsnaam'];
-      delete data[0]['GebruikersID'];
-      data[0]['Tagnummer'] = data[0]['Tagnummer'].toString();
-      data[0]['status'] = 'InDienst';
-      Hardware.insert(data[0]);
-    } else if (type=="tablets"){
-      data[0]['user'] = {NaamEntiteitscode: data[0]['NaamEntiteitscode'], VoornaamEntiteitsnaam: data[0]['VoornaamEntiteitsnaam'], Vlimpersnummer: data[0]['Vlimpersnummer']};
-      delete data[0]['NaamEntiteitscode'];
-      delete data[0]['VoornaamEntiteitsnaam'];
-      delete data[0]['Vlimpersnummer'];
-      data[0]['Tagnummer'] = data[0]['Tagnummer'].toString();
-      data[0]['status'] = 'InDienst';
-      data[0]['Type'] = 'TABLET';
-      var extra = [];
-      for (var key in data[0]){        
-        if (key != '' && key != 'user' && key != 'Tagnummer' && key != 'Status' && key != 'Type' && key != 'Productnaam' && key != 'Entiteit' && key != 'Tagnummer' && key != 'Serienummer' && key != 'Status' && key != 'Opmerking'){
-          extra.push({naam: key, waarde: data[0][key]});
-          delete data[0][key];
-        }
-      };
-      data[0]['extra'] = extra;
-      Hardware.insert(data[0]);
-    } else if (type=="teams"){
-      Teams.insert(data[0]);
-    } else if (type=="adressen"){
-      Adressen.insert(data[0]);
-    } else if (type=="functies"){
-      Functies.insert(data[0]);
-    } else if (type=="entiteiten"){
-      Entiteiten.insert(data[0]);
-    } else if (type=="types"){
-      Types.insert(data[0]);
+    switch (type) {
+      case "personen":
+        data[0]['Geboortedatum'] = new Date(data[0]['Geboortedatum']);
+        data[0]['Vlimpersnummer'] = data[0]['Vlimpersnummer'].toString();
+        Personen.insert(data[0]);
+        break;
+      case "hardware":
+        data[0]['Garantie'] = new Date(data[0]['Garantie']);
+        data[0]['user'] = {NaamEntiteitscode: data[0]['Naam-Entiteitscode'], VoornaamEntiteitsnaam: data[0]['Voornaam-Entiteitsnaam'], GebruikersID: data[0]['GebruikersID']};
+        delete data[0]['Naam-Entiteitscode'];
+        delete data[0]['Voornaam-Entiteitsnaam'];
+        delete data[0]['GebruikersID'];
+        data[0]['Tagnummer'] = data[0]['Tagnummer'].toString();
+        data[0]['status'] = 'InDienst';
+        Hardware.insert(data[0]);
+        break;
+      case "tablets":
+        data[0]['user'] = {NaamEntiteitscode: data[0]['NaamEntiteitscode'], VoornaamEntiteitsnaam: data[0]['VoornaamEntiteitsnaam'], Vlimpersnummer: data[0]['Vlimpersnummer']};
+        delete data[0]['NaamEntiteitscode'];
+        delete data[0]['VoornaamEntiteitsnaam'];
+        delete data[0]['Vlimpersnummer'];
+        data[0]['Tagnummer'] = data[0]['Tagnummer'].toString();
+        data[0]['status'] = 'InDienst';
+        data[0]['Type'] = 'TABLET';
+        var extra = [];
+        for (var key in data[0]){        
+          if (key != '' && key != 'user' && key != 'Tagnummer' && key != 'Status' && key != 'Type' && key != 'Productnaam' && key != 'Entiteit' && key != 'Tagnummer' && key != 'Serienummer' && key != 'Status' && key != 'Opmerking'){
+            extra.push({naam: key, waarde: data[0][key]});
+            delete data[0][key];
+          }
+        };
+        data[0]['extra'] = extra;
+        Hardware.insert(data[0]);
+        break;
+      case "teams":
+        Teams.insert(data[0]);
+        break;
+      case "adressen":
+        Adressen.insert(data[0]);
+        break;
+      case "functies":
+        Functies.insert(data[0]);
+        break;
+      case "entiteiten":
+        Entiteiten.insert(data[0]);
+        break;
+      case "types":
+        Types.insert(data[0]);
+        break;
     }
   },
   connectPersoonHardware: function(){    
@@ -141,24 +150,18 @@ Meteor.methods({
     }    
   },
   getHardware: function(searchTerm){
-    if(searchTerm.length != 7){
-      var searchTermN = (7-searchTerm.length);
-      var start = Math.pow(10, searchTermN);
-      var extra = start-1;
-      start = searchTerm.toString()+start.toString().substr(1);
-      extra = searchTerm.toString()+''+extra.toString();
-      var hardware = Hardware.find({Tagnummer: {$gte: parseInt(start), $lte: parseInt(extra)}}, {sort:{Tagnummer: 1}, limit: 5}).fetch();
+    if (searchTerm != ''){
+      var hardware = Hardware.find({Tagnummer: {$regex: searchTerm}}, {sort:{Tagnummer: 1}, limit: 5}).fetch();
+      hardware.forEach(function(hardw, key){
+        hardw.Garantie = moment(hardw.Garantie).format('DD-MM-YYYY');
+        if (hardw.Garantie == '01-01-1970'){
+          hardw.Garantie= "NA";
+        }
+      });
+      Session.set('foundTags', hardware);
     } else {
-      var hardware = Hardware.find({Tagnummer: parseInt(searchTerm)}, {sort:{Tagnummer: 1}, limit: 5}).fetch();
+      Session.set('foundTags', '');
     }
-    hardware.forEach(function(hardw, key){
-      hardw.Garantie = moment(hardw.Garantie).format('DD-MM-YYYY');
-      if (hardw.Garantie == '01-01-1970'){
-        hardw.Garantie= "NA";
-      }
-    });
-    Session.set('foundTags', hardware);
-    return false;
   },
   hardwareVerwijderen: function(userID, hardwareID){
     var hardware = Hardware.findOne({_id: hardwareID});
@@ -178,14 +181,24 @@ Meteor.methods({
       console.log(result);
     });
   }, 
-  removeHardware: function(hardwareID){
+  removeHardware: function(hardwareID, userID){
     var hardware = Hardware.findOne({_id: hardwareID});
+    var persoon = Personen.findOne({_id: userID});
+    
     hardware.TypeP = 'Hardware';
     console.log(hardware);
     Prullenbak.insert(hardware, function( error, result) { 
       if ( error ) {
         console.log(error);    
       }
+    });   
+    if(hardware.user != undefined) delete hardware.user; 
+    if(hardware.history != undefined) delete hardware.history;
+    Personen.update({_id: userID},{$pull: {Hardware: {Tagnummer: hardware.Tagnummer, Serienummer: hardware.Serienummer}}, $addToSet: {oldHardware:hardware}}, function(error, result){
+      if (error) {
+        console.log(error);
+      } 
+      console.log(result);
     });
     Hardware.remove({_id: hardwareID}, function(error){
       if (error) return error;
@@ -218,7 +231,6 @@ Meteor.methods({
     });
   }, 
   hardwareToevoegenAan: function(data){
-    console.log(data);
     if (data.userid){
       var userID = data.userid;         
       var persoon = Personen.findOne({_id: userID});      
@@ -244,6 +256,31 @@ Meteor.methods({
         }
         $('#hardwareGelukt').css('display','inherit');
       }
+    });    
+  },
+  hardwareBewerken: function(id, data){
+    console.log(data);
+    if (data.extra != undefined){
+      var extra = data.extra;
+      var extra_arr = new Array();
+      for(var k in extra){
+        if (extra.hasOwnProperty(k)) {
+          extra_arr.push({naam: k, waarde: extra[k]});
+        } else {
+          extra_arr.push({naam: k, waarde: ''});
+        }
+      };
+      data.extra = extra_arr;
+    }
+    Hardware.update({_id: id}, {$set: data}, function(error, result){
+      if ( error ) {
+          $('#foutBewerkenBoodschap').html(error);
+          $('#hardwareBewerkenMislukt').css('display','inherit');
+          console.log ( error ); 
+        } //info about what went wrong
+        if ( result ) { 
+          Router.go('hardware.view', {id: id}, {query: 'edited=true'});
+        }
     });
   }
 });
