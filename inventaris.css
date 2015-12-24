@@ -44,4 +44,5 @@ body { padding-top: 70px; }
   border-radius: 30px;
   cursor: pointer;
   line-height: 1;
+  display: inline-block;
 }

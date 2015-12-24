@@ -121,7 +121,7 @@ Router.route('/hardware/bewerken/:id', function() {
 });
 Router.route('/hardware/view/:id', function() {
   Meteor.subscribe("personenSearch");
-  if (this.params.query) {
+  if (this.params.query['edited']) {
     $('#hardwareBewerkenGelukt').css('display','inherit');
   }
   var hardware = Hardware.findOne({
